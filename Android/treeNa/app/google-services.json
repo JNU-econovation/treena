@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "778074047477",
+    "project_id": "treena-18b88",
+    "storage_bucket": "treena-18b88.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:778074047477:android:12e40c023f09e89e59d6bc",
+        "android_client_info": {
+          "package_name": "com.pareutpareut.treena"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "778074047477-t0srq1rh4g8mqtnj7l8b47s24jsh7ce0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pareutpareut.treena",
+            "certificate_hash": "92b8afbe5ef9262b397667e366317eb40514e186"
+          }
+        },
+        {
+          "client_id": "778074047477-675qq397s898dnt5m0oe9kmrb79n3cif.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgKo6_QWuZiCcAwcaFDVnjw4Lc_2WEE3Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "778074047477-675qq397s898dnt5m0oe9kmrb79n3cif.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

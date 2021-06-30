@@ -61,7 +61,7 @@ public class Diary extends AppCompatActivity {
             }
         });
 
-        //데이터베이스에서 일기 읽어오
+        //데이터베이스에서 일기 읽어오기
         databaseReference.child("diary").child(date).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {

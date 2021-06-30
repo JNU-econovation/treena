@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -59,6 +60,7 @@ public class Login extends AppCompatActivity {
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
+        Log.d("loginTest","signIn");
     }
 
     @Override
@@ -71,6 +73,7 @@ public class Login extends AppCompatActivity {
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
+                Log.d("loginTest","onActivityResult");
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
             }
@@ -88,6 +91,7 @@ public class Login extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                            // Snackbar.make(findViewById(R.id.layout_main), "Authentication Successed.", Snackbar.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
+                            Log.d("loginTest","firebaseAuthWithGoogle");
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -100,7 +104,8 @@ public class Login extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user) { //update ui code here
         if (user != null) {
-            Intent intent = new Intent(this, MainActivity.class);
+            Log.d("loginTest","updateUI");
+            Intent intent = new Intent(getApplication(), MainActivity.class);
             startActivity(intent);
             finish();
         }

@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,6 +50,19 @@ public class Diary extends AppCompatActivity {
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+        DatabaseReference userReference = databaseReference.child("Users").child(uid);
+        final String[] userInfo = new String[2];
+
+        userReference.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                userInfo[0] = task.getResult().child("email").getValue(String.class);
+                userInfo[1] = task.getResult().child("name").getValue(String.class);
+                Log.d("userTest", userInfo[0] + " " + userInfo[1]);
+            }
+        });
 
         EditText editText = findViewById(R.id.editText);
         Button button_save = findViewById(R.id.button_save);
@@ -56,13 +71,13 @@ public class Diary extends AppCompatActivity {
         button_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                databaseReference.child("diary").child(date).setValue(editText.getText().toString());
+                databaseReference.child("diary").child(uid).child(date).setValue(editText.getText().toString());
                 Toast.makeText(getApplicationContext(), "일기가 저장되었습니다.", Toast.LENGTH_SHORT).show();
             }
         });
 
         //데이터베이스에서 일기 읽어오기
-        databaseReference.child("diary").child(date).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        databaseReference.child("diary").child(uid).child(date).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
@@ -70,7 +85,12 @@ public class Diary extends AppCompatActivity {
                 } else {
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
                     String diary = String.valueOf(task.getResult().getValue());
-                    editText.setText(diary);
+                    if (!task.getResult().exists()) {
+                        editText.setText("오늘의 일기를 작성해 보세요!");
+                    } else {
+                        editText.setText(diary);
+                    }
+
                 }
             }
         });

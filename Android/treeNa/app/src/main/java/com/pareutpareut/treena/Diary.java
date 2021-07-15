@@ -3,6 +3,7 @@ package com.pareutpareut.treena;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,19 +34,31 @@ public class Diary extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary);
 
+        Button button_home = findViewById(R.id.button_home);
+        TextView textView = findViewById(R.id.textView);
+        EditText editText = findViewById(R.id.editText);
+        Button button_save = findViewById(R.id.button_save);
+        final String[] userInfo = new String[2];
+
+        button_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Diary.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //현재 날짜
         Date currentTime = new Date(System.currentTimeMillis());
         SimpleDateFormat dayFormat = new SimpleDateFormat("dd", Locale.getDefault());
         SimpleDateFormat monthFormat = new SimpleDateFormat("MM", Locale.getDefault());
         SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy", Locale.getDefault());
-
         String year = yearFormat.format(currentTime);
         String month = monthFormat.format(currentTime);
         String day = dayFormat.format(currentTime);
 
         String today = year + "년 " + month + "월 " + day + "일 ";
         String date = year + month + day;
-
-        TextView textView = findViewById(R.id.textView);
         textView.setText(today);
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -53,8 +66,8 @@ public class Diary extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user.getUid();
         DatabaseReference userReference = databaseReference.child("Users").child(uid);
-        final String[] userInfo = new String[2];
 
+        //유저 정보 얻어오기
         userReference.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -64,8 +77,6 @@ public class Diary extends AppCompatActivity {
             }
         });
 
-        EditText editText = findViewById(R.id.editText);
-        Button button_save = findViewById(R.id.button_save);
 
         //데이터베이스에 일기 저장
         button_save.setOnClickListener(new View.OnClickListener() {
@@ -91,8 +102,7 @@ public class Diary extends AppCompatActivity {
                         editText.setText(diary);
                     }
                 }
-            }
+            }가
         });
-
     }
 }

@@ -102,7 +102,7 @@ public class Diary extends AppCompatActivity {
                         editText.setText(diary);
                     }
                 }
-            }가
+            }
         });
     }
 }

@@ -90,7 +90,6 @@ public class Diary extends AppCompatActivity {
                     } else {
                         editText.setText(diary);
                     }
-
                 }
             }
         });

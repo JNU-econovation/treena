@@ -29,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //retrofit
-        setRetrofitInit();
-        callEmotionList();
+       // setRetrofitInit();
+        //callEmotionList();
 
         Button button = (Button) findViewById(R.id.button_diary);
         button.setOnClickListener(new View.OnClickListener() {

@@ -59,7 +59,6 @@ public class Calendar extends AppCompatActivity {
         int[] date = new int[3];
 
         button_home.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Calendar.this, MainActivity.class);
@@ -68,7 +67,6 @@ public class Calendar extends AppCompatActivity {
         });
 
         button_write.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Calendar.this, Diary.class);
@@ -80,8 +78,11 @@ public class Calendar extends AppCompatActivity {
         calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                String test = dataformat.format(date.getDate());
-                Log.d("calendarTest", test);
+                String calendarDate = dataformat.format(date.getDate());
+                Log.d("calendarTest", calendarDate);
+                Intent intent = new Intent(Calendar.this, CalendarDiary.class);
+                intent.putExtra("calendarDate", calendarDate);
+                startActivity(intent);
             }
         });
 
@@ -124,7 +125,6 @@ public class Calendar extends AppCompatActivity {
                     @Override
                     public void run() {
                         Log.d("calendarTest", "set 마지막 추가");
-                        dateSet.add(new CalendarDay(2021, 6, 6));
                         calendarView.addDecorator(new CalendarDecorator(Color.RED, dateSet, Calendar.this));
                     }
                 });

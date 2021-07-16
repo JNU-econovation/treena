@@ -4,7 +4,6 @@ public class Emotion {
     private String answer;
     private String context;
 
-
     public String getAnswer() {
         return answer;
     }
@@ -20,6 +19,4 @@ public class Emotion {
     public void setContext(String context) {
         this.context = context;
     }
-
-
 }

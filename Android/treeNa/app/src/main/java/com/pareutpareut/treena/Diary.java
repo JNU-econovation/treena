@@ -21,13 +21,25 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class Diary extends AppCompatActivity {
+
+    private Retrofit mRetrofit;
+    private RetrofitAPI mRetrofitAPI;
+    private Call<Emotion> mCallEmotionList;
+    private Gson mGson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +50,11 @@ public class Diary extends AppCompatActivity {
         TextView textView = findViewById(R.id.textView);
         EditText editText = findViewById(R.id.editText);
         Button button_save = findViewById(R.id.button_save);
+        Button button_temporary_save = findViewById(R.id.button_temporary_save);
         final String[] userInfo = new String[2];
+
+        //retrofit
+        setRetrofitInit();
 
         button_home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,13 +93,22 @@ public class Diary extends AppCompatActivity {
             }
         });
 
-
         //데이터베이스에 일기 저장
         button_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 databaseReference.child("diary").child(uid).child(date).setValue(editText.getText().toString());
+                callEmotionList(editText.getText().toString());
                 Toast.makeText(getApplicationContext(), "일기가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //데이터베이스에 일기 일 저장
+        button_temporary_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                databaseReference.child("diary").child(uid).child(date).setValue(editText.getText().toString());
+                Toast.makeText(getApplicationContext(), "일기가 임시 저장되었습니다.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -105,4 +130,31 @@ public class Diary extends AppCompatActivity {
             }
         });
     }
+
+    private void setRetrofitInit() {
+        mRetrofit = new Retrofit.Builder().baseUrl("").addConverterFactory(GsonConverterFactory.create()).build();
+        mRetrofitAPI = mRetrofit.create(RetrofitAPI.class);
+    }
+
+    private void callEmotionList(String text) {
+        Emotion emo = new Emotion();
+        emo.setContext(text);
+        mCallEmotionList = mRetrofitAPI.getEmotionList(emo);
+        mCallEmotionList.enqueue(mRetrofitCallback);
+    }
+
+    private Callback<Emotion> mRetrofitCallback = new Callback<Emotion>() {
+        @Override
+        public void onResponse(Call<Emotion> call, Response<Emotion> response) {
+            Emotion result = response.body();
+            Log.d("emotion", result.getAnswer());
+        }
+
+        @Override
+        public void onFailure(Call<Emotion> call, Throwable t) {
+            t.printStackTrace();
+            System.out.println("결과 실패");
+            Log.d("emotion", t.getMessage());
+        }
+    };
 }

@@ -29,12 +29,18 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login2);
 
         firebaseAuth =  FirebaseAuth.getInstance();
+
+        //이미 로그인이 되어있다면 메인페이지로 바로 이동
+        if(firebaseAuth.getCurrentUser() != null){
+            finish();
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        }
+
         //버튼 등록하기
         mResigettxt = findViewById(R.id.register_t2);
         mLoginBtn = findViewById(R.id.login_btn);
         mEmailText = findViewById(R.id.email_et);
         mPasswordText = findViewById(R.id.password_edt);
-
 
         //가입 버튼이 눌리면
         mResigettxt.setOnClickListener(new View.OnClickListener(){
@@ -67,7 +73,6 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             }
                         });
-
             }
         });
     }

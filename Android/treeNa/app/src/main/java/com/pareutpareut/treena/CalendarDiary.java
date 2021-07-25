@@ -219,7 +219,7 @@ public class CalendarDiary extends AppCompatActivity {
         @Override
         public void onFailure(Call<Emotion> call, Throwable t) {
             t.printStackTrace();
-            System.out.println("결과 실");
+            System.out.println("결과 실패");
             Log.d("emotion", t.getMessage());
         }
     };

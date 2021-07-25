@@ -40,6 +40,7 @@ public class Diary extends AppCompatActivity {
     private RetrofitAPI mRetrofitAPI;
     private Call<Emotion> mCallEmotionList;
     private Gson mGson;
+    Intent  intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +94,7 @@ public class Diary extends AppCompatActivity {
             }
         });
 
+        intent = new Intent();
         //데이터베이스에 일기 저장
         button_save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,7 +105,7 @@ public class Diary extends AppCompatActivity {
             }
         });
 
-        //데이터베이스에 일기 일 저장
+        //데이터베이스에 일기 일시 저장
         button_temporary_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -147,6 +149,10 @@ public class Diary extends AppCompatActivity {
         @Override
         public void onResponse(Call<Emotion> call, Response<Emotion> response) {
             Emotion result = response.body();
+            String emotion = result.getAnswer();
+            intent = new Intent(Diary.this, ImageTreena.class);
+            intent.putExtra("emotion", emotion);
+            startActivity(intent);
             Log.d("emotion", result.getAnswer());
         }
 

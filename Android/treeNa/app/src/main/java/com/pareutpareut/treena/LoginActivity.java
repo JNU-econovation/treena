@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         //이미 로그인이 되어있다면 메인페이지로 바로 이동
         if(firebaseAuth.getCurrentUser() != null){
             finish();
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            startActivity(new Intent(getApplicationContext(), SplashActivity.class));
         }
 
         //버튼 등록하기
@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //intent함수를 통해 register액티비티 함수를 호출한다.
-                startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
+                startActivity(new Intent(LoginActivity.this,LoginActivity.class));
 
             }
         });

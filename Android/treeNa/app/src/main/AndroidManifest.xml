@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Treena"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ImageTreena"></activity>
+        <activity android:name=".SplashActivity"></activity>
+        <activity android:name=".ImageTreena" />
         <activity android:name=".CalendarDiary" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity">

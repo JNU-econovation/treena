@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -29,6 +30,11 @@ import java.util.TimerTask;
 
 public class ImageTreena extends AppCompatActivity {
     long diaryNumber;
+    int type;
+    int id;
+    ArrayList<EmotionCommentVO> commentList;
+    String ment;
+    String imageUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +45,13 @@ public class ImageTreena extends AppCompatActivity {
 
         Intent intent = getIntent();
         String emotion = intent.getExtras().getString("emotion");
-        String imageUrl = "";
-        String ment = "";
-        ArrayList<EmotionCommentVO> commentList = new ArrayList<>();
+        imageUrl = "";
+        ment = "";
+        commentList = new ArrayList<>();
         commentList = getCommentList();
-        Log.d("emotion", commentList.get(0).getName());
-        int type = 0;
+        type = 0;
         diaryNumber = 0;
-        int id = 0;
+        id = 0;
 
         //쓴 일기 개수 체크
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -61,7 +66,7 @@ public class ImageTreena extends AppCompatActivity {
                 } else {
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
                     diaryNumber = task.getResult().getChildrenCount();
-                    Log.d("diaryTest", String.valueOf(diaryNumber));
+                    Log.d("emotion", "다이어리 양 : "+String.valueOf(diaryNumber));
 
                 }
             }
@@ -71,22 +76,20 @@ public class ImageTreena extends AppCompatActivity {
         for (int i = 0; i < commentList.size(); i++) {
             if (emotion.equals(commentList.get(i).getName())) {
                 type = commentList.get(i).getType();
-                Log.d("emotion", String.valueOf(type));
+                Log.d("emotion", "type : "+ String.valueOf(type));
                 id = i;
+                break;
             }
         }
 
-        //멘트 랜덤 난수 발생 후 멘트 텍스트뷰 적용
         int mentRandom = (int) ((Math.random() * 10000) % (commentList.get(id).getResponse().size()));
-        if (emotion.equals("neutral")) {
-            ment = commentList.get(id).getResponse().get(mentRandom);
-            textView.setText(ment);
-
-        }
+        Log.d("emotion", "랜덤 멘트 : "+String.valueOf(mentRandom));
+        ment = commentList.get(id).getResponse().get(mentRandom);
+        textView.setText(ment);
 
         if (type == 0) {
             imageUrl = "http://www.skillagit.com/data/product/1543845794.jpg";
-            Glide.with(this).load(imageUrl).into(imageView);
+            Glide.with(getApplicationContext()).load(imageUrl).into(imageView);
         }
 
         Timer timer = new Timer();

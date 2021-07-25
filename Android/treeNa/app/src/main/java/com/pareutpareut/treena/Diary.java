@@ -40,7 +40,7 @@ public class Diary extends AppCompatActivity {
     private RetrofitAPI mRetrofitAPI;
     private Call<Emotion> mCallEmotionList;
     private Gson mGson;
-    Intent  intent;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

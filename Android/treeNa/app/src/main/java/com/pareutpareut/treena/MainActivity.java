@@ -30,11 +30,23 @@ public class MainActivity extends AppCompatActivity {
 
     long diaryNumber;
     ImageView imageView;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+    FirebaseUser user;
+    String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        uid = user.getUid();
+
+        Intent intent = getIntent();
+        diaryNumber = intent.getExtras().getInt("number");
+        Log.d("diaryTest", "intent get");
 
         Button button = (Button) findViewById(R.id.button_diary);
         button.setOnClickListener(new View.OnClickListener() {
@@ -65,37 +77,22 @@ public class MainActivity extends AppCompatActivity {
 
         imageView = findViewById(R.id.imageView_main);
 
-
     }
+
     @Override
     public void onResume() {
         super.onResume();
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = user.getUid();
-        databaseReference.child("diary").child(uid).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                } else {
-                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                    diaryNumber = task.getResult().getChildrenCount();
-                    Log.d("diaryTest", String.valueOf(diaryNumber));
 
-                }
-            }
-        });
+        String imageUrl = "";
 
-       String imageUrl = "";
-
-        if(diaryNumber <= 5){
+        if (diaryNumber <= 5) {
+            Log.d("diaryTest", "다이어리 이미지 적용");
             imageUrl = "https://en.pimg.jp/067/180/868/1/67180868.jpg";
             Glide.with(this).load(imageUrl).into(imageView);
             return;
         }
-        if(diaryNumber>5){
+        if (diaryNumber > 5) {
+            Log.d("diaryTest", "다이어리 이미지 적용");
             imageUrl = "https://image.onstove.com/850x0/d3kxs6kpbh59hp.cloudfront.net/community/COMMUNITY/8d39624cccf24f2e8ca0ca9bdc80689d/fa91de2892f647f89999a59714bc906f_1595446556.jpg";
             Glide.with(this).load(imageUrl).into(imageView);
             return;

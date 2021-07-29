@@ -35,6 +35,12 @@ public class ImageTreena extends AppCompatActivity {
     ArrayList<EmotionCommentVO> commentList;
     String ment;
     String imageUrl;
+    int treeLevel;
+    String[][] imageUrlList = {{"http://www.skillagit.com/data/product/1543845794.jpg", "http://www.skillagit.com/data/product/1543845794.jpg"},
+            {"http://www.skillagit.com/data/product/1543845794.jpg"},
+            {"http://www.skillagit.com/data/product/1543845794.jpg"}, {"http://www.skillagit.com/data/product/1543845794.jpg"},
+            {"http://www.skillagit.com/data/product/1543845794.jpg"}, {"http://www.skillagit.com/data/product/1543845794.jpg"},
+            {"http://www.skillagit.com/data/product/1543845794.jpg"}, {"http://www.skillagit.com/data/product/1543845794.jpg"}, {"http://www.skillagit.com/data/product/1543845794.jpg"}};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,29 +72,38 @@ public class ImageTreena extends AppCompatActivity {
                 } else {
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
                     diaryNumber = task.getResult().getChildrenCount();
-                    Log.d("emotion", "다이어리 양 : "+String.valueOf(diaryNumber));
+                    Log.d("emotion", "다이어리 양 : " + String.valueOf(diaryNumber));
 
                 }
             }
         });
 
+        treeLevel = getTreeLevel();
         //받아온 감정 타입 체크
         for (int i = 0; i < commentList.size(); i++) {
             if (emotion.equals(commentList.get(i).getName())) {
                 type = commentList.get(i).getType();
-                Log.d("emotion", "type : "+ String.valueOf(type));
+                Log.d("emotion", "type : " + String.valueOf(type));
                 id = i;
                 break;
             }
         }
 
         int mentRandom = (int) ((Math.random() * 10000) % (commentList.get(id).getResponse().size()));
-        Log.d("emotion", "랜덤 멘트 : "+String.valueOf(mentRandom));
+        Log.d("emotion", "랜덤 멘트 : " + String.valueOf(mentRandom));
         ment = commentList.get(id).getResponse().get(mentRandom);
         textView.setText(ment);
 
         if (type == 0) {
-            imageUrl = "http://www.skillagit.com/data/product/1543845794.jpg";
+            int imageRandom = (int) ((Math.random() * 10000) % 2);
+            imageUrl = imageUrlList[imageRandom][treeLevel];
+            Glide.with(getApplicationContext()).load(imageUrl).into(imageView);
+        } else if (type == 1) {
+            int imageRandom = (int) ((Math.random() * 10000) % 3);
+            imageUrl = imageUrlList[imageRandom][treeLevel];
+            Glide.with(getApplicationContext()).load(imageUrl).into(imageView);
+        } else if (type == -1) {
+            imageUrl = imageUrlList[5][treeLevel];
             Glide.with(getApplicationContext()).load(imageUrl).into(imageView);
         }
 
@@ -97,7 +112,9 @@ public class ImageTreena extends AppCompatActivity {
             @Override
             public void run() {
                 Log.d("emotion", "timer 작동");
-                startActivity(new Intent(ImageTreena.this, MainActivity.class));
+                Intent intent1 = new Intent(ImageTreena.this, MainActivity.class);
+                intent1.putExtra("number", diaryNumber);
+                startActivity(intent1);
             }
         };
         timer.schedule(timerTask, 6000);
@@ -131,5 +148,36 @@ public class ImageTreena extends AppCompatActivity {
             e.printStackTrace();
         }
         return list;
+    }
+
+    private int getTreeLevel() {
+        if (diaryNumber <= 2) {
+            return 0;
+        }
+        if (diaryNumber > 2 && diaryNumber <= 7) {
+            return 1;
+        }
+        if (diaryNumber > 7 && diaryNumber <= 14) {
+            return 2;
+        }
+        if (diaryNumber > 14 && diaryNumber <= 21) {
+            return 3;
+        }
+        if (diaryNumber > 21 && diaryNumber <= 28) {
+            return 4;
+        }
+        if (diaryNumber > 28 && diaryNumber <= 35) {
+            return 5;
+        }
+        if (diaryNumber > 35 && diaryNumber <= 42) {
+            return 6;
+        }
+        if (diaryNumber > 42 && diaryNumber <= 49) {
+            return 7;
+        }
+        if (diaryNumber > 49 && diaryNumber <= 56) {
+            return 8;
+        }
+        return 0;
     }
 }

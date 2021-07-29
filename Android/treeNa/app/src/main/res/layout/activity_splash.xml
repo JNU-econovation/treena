@@ -8,12 +8,12 @@
 
     <ImageView
         android:id="@+id/imageView_loading"
-        android:layout_width="111dp"
-        android:layout_height="120dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/loading"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.387"
-        app:srcCompat="?android:attr/listChoiceIndicatorSingle" />
+        app:layout_constraintVertical_bias="0.387" />
 </androidx.constraintlayout.widget.ConstraintLayout>

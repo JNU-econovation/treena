@@ -52,10 +52,18 @@ public class Diary extends AppCompatActivity {
         EditText editText = findViewById(R.id.editText);
         Button button_save = findViewById(R.id.button_save);
         Button button_temporary_save = findViewById(R.id.button_temporary_save);
+        Button button_setting = findViewById(R.id.button_setting);
         final String[] userInfo = new String[2];
 
         //retrofit
         setRetrofitInit();
+
+        button_setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Diary.this, Setting.class));
+            }
+        });
 
         button_home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,7 +132,7 @@ public class Diary extends AppCompatActivity {
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
                     String diary = String.valueOf(task.getResult().getValue());
                     if (!task.getResult().exists()) {
-                        editText.setText("오늘의 일기를 작성해 보세요!");
+                        editText.setText("\n" + "오늘의 일기를 작성해 보세요!");
                     } else {
                         editText.setText(diary);
                     }

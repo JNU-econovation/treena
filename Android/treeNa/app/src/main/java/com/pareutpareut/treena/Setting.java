@@ -68,12 +68,12 @@ public class Setting extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
+                    signOut();
                     Toast.makeText(Setting.this, "이메일을 보냈습니다.", Toast.LENGTH_LONG).show();
                     finish();
                     startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 } else {
                     Toast.makeText(Setting.this, "메일 보내기에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_LONG).show();
-                    ;
 
                 }
             }
@@ -83,6 +83,7 @@ public class Setting extends AppCompatActivity {
     private void signOut() {
         Toast.makeText(Setting.this, "로그아웃하였습니다.", Toast.LENGTH_LONG).show();
         FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
     }
 
     private void revokeAccess() {

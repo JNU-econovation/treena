@@ -1,61 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0B0A0A"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    android:weightSum="1480"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/button_diary"
-        android:layout_width="93dp"
-        android:layout_height="53dp"
-        android:text="일기"
-        android:textColor="#040303"
-        android:textSize="14sp"
-        app:backgroundTint="#EEF3F2"
-        app:iconTint="#E3E1E1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.886"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.945" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="57.3"
+        android:orientation="vertical"
+        android:weightSum="57.3" />
 
-    <Button
-        android:id="@+id/button_calendar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:shadowColor="#D8D4D4"
-        android:text="claendar"
-        app:backgroundTint="#575353"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button_diary"
-        app:layout_constraintHorizontal_bias="0.336"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.945" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="119.3"
+        android:orientation="horizontal"
+        android:weightSum="720">
 
-    <Button
-        android:id="@+id/button_setting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="설정"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="247.3"
+            android:visibility="invisible" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="226"
+            android:background="@drawable/treena_logo" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="95"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/button_setting"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="152.7"
+            android:background="@drawable/profile" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="96"
+        android:orientation="vertical"
+        android:weightSum="96" />
 
     <ImageView
         android:id="@+id/imageView_main"
-        android:layout_width="354dp"
-        android:layout_height="448dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="964.5"
         app:srcCompat="@drawable/little_leaf" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="98.9"
+        android:orientation="horizontal"
+        android:weightSum="720">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="68"
+            android:visibility="invisible" />
+
+        <Button
+
+            android:id="@+id/button_calendar"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="109.3"
+            android:background="@drawable/calendar" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="378.1"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/button_diary"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="109.3"
+            android:background="@drawable/plus" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="59.1"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="144.1"
+        android:orientation="vertical"
+        android:weightSum="144.1" />
+
+</LinearLayout>

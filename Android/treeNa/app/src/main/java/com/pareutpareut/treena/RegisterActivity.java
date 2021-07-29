@@ -1,7 +1,6 @@
 package com.pareutpareut.treena;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -29,19 +28,12 @@ public class RegisterActivity extends AppCompatActivity {
     EditText mEmailText, mPasswordText, mPasswordcheckText, mName;
     Button mregisterBtn;
     private FirebaseAuth firebaseAuth;
+    Button findPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
-
-        //액션 바 등록하기
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Create Account");
-
-        actionBar.setDisplayHomeAsUpEnabled(true); //뒤로가기버튼
-        actionBar.setDisplayShowHomeEnabled(true); //홈 아이콘
 
         //파이어베이스 접근 설정
         // user = firebaseAuth.getCurrentUser();
@@ -53,8 +45,16 @@ public class RegisterActivity extends AppCompatActivity {
         mPasswordcheckText = findViewById(R.id.passwordCheckEdt);
         mregisterBtn = findViewById(R.id.register2_btn);
         mName = findViewById(R.id.nameEt);
-
+        findPassword = findViewById(R.id.find_password_register);
         //파이어베이스 user 로 접글
+
+        //비번 변경 메소드 아직 실행 안 됨.
+        findPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         //가입버튼 클릭리스너   -->  firebase에 데이터를 저장한다.
         mregisterBtn.setOnClickListener(new View.OnClickListener(){

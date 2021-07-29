@@ -47,6 +47,8 @@ public class Calendar extends AppCompatActivity {
         Button button_home = findViewById(R.id.button_move_home);
         Button button_write = findViewById(R.id.button_write);
         MaterialCalendarView calendarView = findViewById(R.id.calendarView);
+        Button button_move_home = findViewById(R.id.button_home);
+        Button button_setting = findViewById(R.id.button_setting);
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference();
@@ -58,7 +60,23 @@ public class Calendar extends AppCompatActivity {
         final HashSet<CalendarDay> dateSet = new HashSet<>();
         int[] date = new int[3];
 
+
         button_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Calendar.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        button_setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Calendar.this, Setting.class));
+            }
+        });
+
+        button_move_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Calendar.this, MainActivity.class);

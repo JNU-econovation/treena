@@ -55,6 +55,7 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.putExtra("number", diaryNumber);
+                Log.d("diaryTest", "intent put : "+String.valueOf(diaryNumber));
                 startActivity(intent);
                 finish();
             }

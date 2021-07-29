@@ -48,57 +48,74 @@ public class CalendarDiary extends AppCompatActivity {
         EditText editText = findViewById(R.id.editText_calendar_diary_content);
         Button button_save = findViewById(R.id.button_calendar_diary_save);
         Button button_temporary_save = findViewById(R.id.button_calendar_diary_temporay_save);
-        Button button_calendar = findViewById(R.id.button_move_calendar);
         Button button_before = findViewById(R.id.button_before);
         Button button_next = findViewById(R.id.button_next);
+        Button button_home = findViewById(R.id.button_home);
+        Button button_setting = findViewById(R.id.button_setting);
+        Button button_delete = findViewById(R.id.button_delete);
 
         Intent intent = getIntent();
-        String calendarDate = intent.getExtras().getString("calendarDate");
+        calendarDate = intent.getExtras().getString("calendarDate");
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user.getUid();
 
-        year = Integer.parseInt(calendarDate.substring(0,4));
-        month = Integer.parseInt(calendarDate.substring(4,6));
+        year = Integer.parseInt(calendarDate.substring(0, 4));
+        month = Integer.parseInt(calendarDate.substring(4, 6));
         day = Integer.parseInt(calendarDate.substring(6));
         monthStr = String.valueOf(month);
         dayStr = String.valueOf(day);
 
-        String date = year+"년 "+month+"월 "+day+"일";
+        String date = year + "년 " + month + "월 " + day + "일";
 
         textView_date.setText(date);
 
-        //retrofit
-        setRetrofitInit();
-
-        //캘린더로 이동
-        button_calendar.setOnClickListener(new View.OnClickListener() {
+        button_setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CalendarDiary.this, Calendar.class);
+                startActivity(new Intent(CalendarDiary.this, Setting.class));
+            }
+        });
+
+        button_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CalendarDiary.this, MainActivity.class);
                 startActivity(intent);
             }
         });
+
+        button_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                databaseReference.child("diary").child(uid).child(calendarDate).removeValue();
+                Toast.makeText(getApplicationContext(), "일기가 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //retrofit
+        setRetrofitInit();
 
         //전 날의 일기 보기
         button_before.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 day -= 1;
-                if(day <10){
+                if (day < 10) {
                     dayStr = "0" + day;
-                }else{
-                    dayStr = ""+day;
+                } else {
+                    dayStr = "" + day;
                 }
-                if(month < 10){
-                    monthStr = "0"+month;
-                }else{
-                    monthStr = ""+month;
+                if (month < 10) {
+                    monthStr = "0" + month;
+                } else {
+                    monthStr = "" + month;
                 }
-                String queryDate = year+""+monthStr+dayStr;
-                String beforeDate = year+"년 "+month+"월 "+day+"일";
+                String queryDate = year + "" + monthStr + dayStr;
+                String beforeDate = year + "년 " + month + "월 " + day + "일";
+                calendarDate = queryDate;
                 textView_date.setText(beforeDate);
 
                 databaseReference.child("diary").child(uid).child(queryDate).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -110,7 +127,7 @@ public class CalendarDiary extends AppCompatActivity {
                             Log.d("firebase", String.valueOf(task.getResult().getValue()));
                             String diary = String.valueOf(task.getResult().getValue());
                             if (!task.getResult().exists()) {
-                                editText.setText("일기를 작성해 보세요!");
+                                editText.setText("\n" + " 일기를 작성해 보세요!");
                             } else {
                                 editText.setText(diary);
                             }
@@ -125,18 +142,19 @@ public class CalendarDiary extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 day += 1;
-                if(day <10){
+                if (day < 10) {
                     dayStr = "0" + day;
-                }else{
-                    dayStr = ""+day;
+                } else {
+                    dayStr = "" + day;
                 }
-                if(month < 10){
-                    monthStr = "0"+month;
-                }else{
-                    monthStr = ""+month;
+                if (month < 10) {
+                    monthStr = "0" + month;
+                } else {
+                    monthStr = "" + month;
                 }
-                String queryDate = year+""+monthStr+dayStr;
-                String nextDate = year+"년 "+month+"월 "+day+"일";
+                String queryDate = year + "" + monthStr + dayStr;
+                calendarDate = queryDate;
+                String nextDate = year + "년 " + month + "월 " + day + "일";
                 textView_date.setText(nextDate);
 
                 databaseReference.child("diary").child(uid).child(queryDate).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -186,7 +204,7 @@ public class CalendarDiary extends AppCompatActivity {
             }
         });
 
-        //데이터베이스에 일기 일 저장
+        //데이터베이스에 일기 일시 저장
         button_temporary_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -202,7 +220,7 @@ public class CalendarDiary extends AppCompatActivity {
         mRetrofitAPI = mRetrofit.create(RetrofitAPI.class);
     }
 
-    private void callEmotionList(String text){
+    private void callEmotionList(String text) {
         Emotion emo = new Emotion();
         emo.setContext(text);
         mCallEmotionList = mRetrofitAPI.getEmotionList(emo);
@@ -213,6 +231,10 @@ public class CalendarDiary extends AppCompatActivity {
         @Override
         public void onResponse(Call<Emotion> call, Response<Emotion> response) {
             Emotion result = response.body();
+            String emotion = result.getAnswer();
+            Intent intent = new Intent(CalendarDiary.this, ImageTreena.class);
+            intent.putExtra("emotion", emotion);
+            startActivity(intent);
             Log.d("emotion", result.getAnswer());
         }
 

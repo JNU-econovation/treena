@@ -131,7 +131,7 @@
         android:ems="10"
         android:fontFamily="@font/theletssmilel"
         android:gravity="top"
-        android:inputType="textPersonName"
+        android:hint="\n오늘은 어떤 일이 있었나요? \n오늘 느꼈던 감정에 집중하면서 감정 단어(ex. 행복했다, 슬펐다, 놀랐다)를 사용해서 일기를 작성해 보세요"
         android:textColor="#000000" />
 
     <LinearLayout

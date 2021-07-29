@@ -132,7 +132,7 @@ public class Diary extends AppCompatActivity {
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
                     String diary = String.valueOf(task.getResult().getValue());
                     if (!task.getResult().exists()) {
-                        editText.setText("\n" + "오늘의 일기를 작성해 보세요!");
+                        editText.setText("");
                     } else {
                         editText.setText(diary);
                     }
@@ -158,7 +158,7 @@ public class Diary extends AppCompatActivity {
         public void onResponse(Call<Emotion> call, Response<Emotion> response) {
             Emotion result = response.body();
             String emotion = result.getAnswer();
-            intent = new Intent(Diary.this, ImageTreena.class);
+            intent = new Intent(Diary.this, SplashTreenaActivity.class);
             intent.putExtra("emotion", emotion);
             startActivity(intent);
             Log.d("emotion", result.getAnswer());

@@ -103,6 +103,10 @@ public class CalendarDiary extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 day -= 1;
+                if(day == 0){
+                    month -= 1;
+                    day = 31;
+                }
                 if (day < 10) {
                     dayStr = "0" + day;
                 } else {
@@ -127,7 +131,7 @@ public class CalendarDiary extends AppCompatActivity {
                             Log.d("firebase", String.valueOf(task.getResult().getValue()));
                             String diary = String.valueOf(task.getResult().getValue());
                             if (!task.getResult().exists()) {
-                                editText.setText("\n" + " 일기를 작성해 보세요!");
+                                editText.setText("");
                             } else {
                                 editText.setText(diary);
                             }
@@ -142,6 +146,10 @@ public class CalendarDiary extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 day += 1;
+                if(day ==32){
+                    month += 1;
+                    day = 1;
+                }
                 if (day < 10) {
                     dayStr = "0" + day;
                 } else {
@@ -152,6 +160,7 @@ public class CalendarDiary extends AppCompatActivity {
                 } else {
                     monthStr = "" + month;
                 }
+
                 String queryDate = year + "" + monthStr + dayStr;
                 calendarDate = queryDate;
                 String nextDate = year + "년 " + month + "월 " + day + "일";
@@ -166,7 +175,7 @@ public class CalendarDiary extends AppCompatActivity {
                             Log.d("firebase", String.valueOf(task.getResult().getValue()));
                             String diary = String.valueOf(task.getResult().getValue());
                             if (!task.getResult().exists()) {
-                                editText.setText("일기를 작성해 보세요!");
+                                editText.setText("");
                             } else {
                                 editText.setText(diary);
                             }
@@ -186,7 +195,7 @@ public class CalendarDiary extends AppCompatActivity {
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
                     String diary = String.valueOf(task.getResult().getValue());
                     if (!task.getResult().exists()) {
-                        editText.setText("일기를 작성해 보세요!");
+                        editText.setText("");
                     } else {
                         editText.setText(diary);
                     }
@@ -232,7 +241,7 @@ public class CalendarDiary extends AppCompatActivity {
         public void onResponse(Call<Emotion> call, Response<Emotion> response) {
             Emotion result = response.body();
             String emotion = result.getAnswer();
-            Intent intent = new Intent(CalendarDiary.this, ImageTreena.class);
+            Intent intent = new Intent(CalendarDiary.this, SplashTreenaActivity.class);
             intent.putExtra("emotion", emotion);
             startActivity(intent);
             Log.d("emotion", result.getAnswer());

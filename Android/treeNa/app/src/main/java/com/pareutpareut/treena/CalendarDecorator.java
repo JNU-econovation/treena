@@ -17,7 +17,7 @@ public class CalendarDecorator implements DayViewDecorator {
     private HashSet<CalendarDay> dates;
 
     public CalendarDecorator(int color, Collection<CalendarDay> dates, Activity context) {
-        this.drawable = context.getResources().getDrawable(R.drawable.rhjleaf2);
+        this.drawable = context.getResources().getDrawable(R.drawable.leaf2);
         this.color = color;
         this.dates = new HashSet<>(dates);
     }

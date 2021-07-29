@@ -55,6 +55,7 @@
             android:layout_height="match_parent"
             android:layout_weight="602"
             android:hint="   Name"
+            android:fontFamily="@font/theletssmilem"
             android:background="@drawable/loginbox"
             android:inputType="textPersonName"/>
         <View
@@ -89,6 +90,7 @@
             android:layout_height="match_parent"
             android:layout_weight="602"
             android:hint="   Email"
+            android:fontFamily="@font/theletssmilem"
             android:background="@drawable/loginbox"
             android:inputType="textEmailAddress"/>
         <View
@@ -124,6 +126,7 @@
             android:layout_height="match_parent"
             android:layout_weight="602"
             android:hint="   Password"
+            android:fontFamily="@font/theletssmilem"
             android:background="@drawable/loginbox"
             android:inputType="textPassword"/>
         <View
@@ -158,6 +161,7 @@
             android:layout_height="match_parent"
             android:layout_weight="602"
             android:hint="   Password Check"
+            android:fontFamily="@font/theletssmilem"
             android:background="@drawable/loginbox"
             android:inputType="textPassword"/>
         <View
@@ -192,6 +196,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="462.8"
+            android:fontFamily="@font/theletssmilem"
             android:text="* 비밀번호는 6글자 이상으로 설정해주세요."
             android:textSize="14sp"
             />
@@ -228,6 +233,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="197.4"
+            android:fontFamily="@font/theletssmilem"
             android:background="@drawable/blackbox"
             android:text="회원가입"
             android:textColor="#ffffff" />
@@ -263,6 +269,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="197.4"
+            android:fontFamily="@font/theletssmilem"
             android:background="@drawable/whitebox"
             android:text="PW 찾기" />
         <View

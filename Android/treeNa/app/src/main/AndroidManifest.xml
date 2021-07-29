@@ -6,13 +6,17 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Treena"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SplashActivity"></activity>
+        <activity
+            android:name=".SplashTreenaActivity"
+            android:label="@string/title_activity_splash_treena"
+            android:theme="@style/Theme.Treena.NoActionBar"></activity>
+        <activity android:name=".SplashActivity" />
         <activity android:name=".ImageTreena" />
         <activity android:name=".CalendarDiary" />
         <activity android:name=".RegisterActivity" />

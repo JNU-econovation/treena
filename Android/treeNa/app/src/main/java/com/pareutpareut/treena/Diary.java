@@ -68,7 +68,7 @@ public class Diary extends AppCompatActivity {
         button_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Diary.this, MainActivity.class);
+                Intent intent = new Intent(Diary.this, SplashActivity.class);
                 startActivity(intent);
             }
         });

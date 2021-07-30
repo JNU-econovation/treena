@@ -82,7 +82,7 @@ public class CalendarDiary extends AppCompatActivity {
         button_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CalendarDiary.this, MainActivity.class);
+                Intent intent = new Intent(CalendarDiary.this, SplashActivity.class);
                 startActivity(intent);
             }
         });
@@ -221,7 +221,6 @@ public class CalendarDiary extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "일기가 임시 저장되었습니다.", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     private void setRetrofitInit() {
